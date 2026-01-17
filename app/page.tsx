@@ -23,6 +23,9 @@ export default async function HomePage() {
   // Redirigir según el rol
   if (profile?.role === 'super_admin') {
     redirect('/supreme-court');
+  } else if (profile?.role === 'admin') {
+    // Rol admin (auditor) → Panel de auditoría
+    redirect('/admin');
   } else if (profile?.role === 'judge') {
     redirect('/judge/cases');
   } else if (profile?.role === 'secretary') {

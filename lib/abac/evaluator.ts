@@ -22,6 +22,17 @@ export interface EvaluationResult {
 }
 
 /**
+ * Atributo ABAC del usuario
+ */
+interface UserAttribute {
+    id: string;
+    name: string;
+    category: string;
+    level: number;
+    description: string | null;
+}
+
+/**
  * Motor de evaluación ABAC (Attribute-Based Access Control)
  * 
  * Este servicio evalúa permisos basado en:
@@ -58,7 +69,7 @@ export class ABACEvaluator {
 
             if (requiredAttribute) {
                 const hasRequired = userAttributes.some(
-                    attr => attr.name === requiredAttribute
+                    (attr: UserAttribute) => attr.name === requiredAttribute
                 );
 
                 if (!hasRequired) {
@@ -137,7 +148,7 @@ export class ABACEvaluator {
     /**
      * Obtener atributos activos del usuario (no expirados)
      */
-    private async getUserAttributes(userId: string, supabase: any) {
+    private async getUserAttributes(userId: string, supabase: any): Promise<UserAttribute[]> {
         const { data, error } = await supabase
             .from('user_attributes')
             .select(`
@@ -160,9 +171,9 @@ export class ABACEvaluator {
         }
 
         // Aplanar la estructura anidada
-        return data
-            ?.map(ua => ua.abac_attributes)
-            .filter(Boolean) || [];
+        return (data
+            ?.map((ua: { abac_attributes: UserAttribute }) => ua.abac_attributes)
+            .filter(Boolean) || []) as UserAttribute[];
     }
 
     /**
@@ -250,7 +261,7 @@ export class ABACEvaluator {
 
         // Obtener el máximo nivel
         const maxLevel = Math.max(
-            ...data.map(item => {
+            ...data.map((item: { abac_attributes: { name: string } }) => {
                 const name = item.abac_attributes.name;
                 if (name.includes('L1')) return 1;
                 if (name.includes('L2')) return 2;

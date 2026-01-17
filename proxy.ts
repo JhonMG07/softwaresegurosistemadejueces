@@ -74,6 +74,16 @@ export async function proxy(request: NextRequest) {
     }
   }
 
+  // Proteger rutas de Admin (Auditor)
+  // Solo admin y super_admin pueden acceder
+  if (pathname.startsWith('/admin')) {
+    if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {
+      const url = request.nextUrl.clone();
+      url.pathname = '/unauthorized';
+      return NextResponse.redirect(url);
+    }
+  }
+
   // Proteger rutas de jueces
   if (pathname.startsWith('/judge')) {
     if (profile?.role !== 'judge') {
@@ -83,11 +93,22 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // Proteger APIs de admin
+  // Proteger APIs de admin (Supreme Court)
   if (pathname.startsWith('/api/admin')) {
     if (profile?.role !== 'super_admin') {
       return NextResponse.json(
         { error: 'Forbidden - Super Admin access required' },
+        { status: 403 }
+      );
+    }
+  }
+
+  // Proteger APIs de auditoria
+  // Solo admin y super_admin pueden acceder
+  if (pathname.startsWith('/api/audit')) {
+    if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {
+      return NextResponse.json(
+        { error: 'Forbidden - Admin access required' },
         { status: 403 }
       );
     }

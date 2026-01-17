@@ -44,13 +44,13 @@ export async function GET(
         let assignedJudgeId = null;
 
         if (assignment?.anon_actor_id) {
-            const realJudgeId = await IdentityVaultService.resolveIdentity(assignment.anon_actor_id);
-            if (realJudgeId) {
-                assignedJudgeId = realJudgeId;
+            const identityResult = await IdentityVaultService.resolveIdentity(assignment.anon_actor_id, user.id);
+            if (identityResult) {
+                assignedJudgeId = identityResult.userId;
                 const { data: judgeProfile } = await supabaseAdmin
                     .from('users_profile')
                     .select('id, real_name, email, role')
-                    .eq('id', realJudgeId)
+                    .eq('id', assignedJudgeId)
                     .single();
 
                 if (judgeProfile) {

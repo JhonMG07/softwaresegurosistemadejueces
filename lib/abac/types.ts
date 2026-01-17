@@ -74,10 +74,19 @@ export const ATTRIBUTES = {
     RESTRICT_NO_EXPORT: 'restrict.no_export',
     RESTRICT_NO_DELETE: 'restrict.no_delete',
 
-    // Admin
+    // Admin (Super Admin)
     ADMIN_ABAC_MANAGE: 'admin.abac.manage',
     ADMIN_VAULT_REVEAL: 'admin.vault.reveal_identity',
     ADMIN_AUDIT_VIEW: 'admin.audit.view',
+
+    // Auditoría (Rol Admin/Auditor)
+    // Estos atributos son específicos para el rol "admin" (auditor)
+    // que solo puede ver datos anonimizados y métricas agregadas
+    AUDIT_LOGS_VIEW: 'audit.logs.view',
+    AUDIT_METRICS_VIEW: 'audit.metrics.view',
+    AUDIT_TOKENS_VIEW: 'audit.tokens.view',
+    AUDIT_CASES_STATS: 'audit.cases.stats',
+    AUDIT_EXPORT_CSV: 'audit.export.csv',
 } as const;
 
 /**
@@ -108,8 +117,15 @@ export const ACTIONS = {
     USER_EDIT: 'user.edit',
     USER_DEACTIVATE: 'user.deactivate',
 
-    // Admin
+    // Admin (Super Admin)
     ADMIN_REVEAL_IDENTITY: 'admin.reveal_identity',
     ADMIN_ABAC: 'admin.abac',
     ADMIN_AUDIT: 'admin.audit',
+
+    // Auditoría (Rol Admin/Auditor)
+    AUDIT_VIEW_LOGS: 'audit.view_logs',
+    AUDIT_VIEW_METRICS: 'audit.view_metrics',
+    AUDIT_VIEW_TOKENS: 'audit.view_tokens',
+    AUDIT_VIEW_CASE_STATS: 'audit.view_case_stats',
+    AUDIT_EXPORT: 'audit.export',
 } as const;
