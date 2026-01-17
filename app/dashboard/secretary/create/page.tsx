@@ -6,13 +6,17 @@ export default function CreateCasePage() {
     return (
         <>
             <AppNavbar />
-            <div className="min-h-screen bg-background p-8 flex flex-col items-center justify-center">
-                <div className="w-full max-w-lg mb-4">
-                    <Link href="/dashboard/secretary" className="text-sm text-muted-foreground hover:underline">
-                        ← Volver al Panel
-                    </Link>
+            <div className="h-[calc(100vh-88px)] bg-background overflow-hidden relative">
+                <div className="container mx-auto px-6 h-full flex flex-col pt-4">
+                    <div className="w-full mb-4 sticky z-10 bg-background/95 backdrop-blur py-2">
+                        <Link href="/dashboard/secretary" className="text-lg font-medium text-muted-foreground hover:underline hover:text-primary transition-colors flex items-center gap-2">
+                            <span>←</span> Volver al Panel
+                        </Link>
+                    </div>
+                    <div className="flex-1 overflow-auto pb-8">
+                        <CreateCaseForm />
+                    </div>
                 </div>
-                <CreateCaseForm />
             </div>
         </>
     );

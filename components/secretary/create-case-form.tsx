@@ -77,7 +77,7 @@ export function CreateCaseForm() {
                                 <SelectItem value="low">Baja</SelectItem>
                                 <SelectItem value="medium">Media</SelectItem>
                                 <SelectItem value="high">Alta</SelectItem>
-                                <SelectItem value="critical">Crítica</SelectItem>
+                                <SelectItem value="critical">Urgente</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
