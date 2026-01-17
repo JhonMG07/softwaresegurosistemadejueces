@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { SessionTimeoutManager } from "@/components/auth/session-timeout-manager";
+import { Suspense } from "react";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -40,7 +41,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          <SessionTimeoutManager serverInstanceId={serverId} />
+          <Suspense fallback={null}>
+            <SessionTimeoutManager serverInstanceId={serverId} />
+          </Suspense>
           <Toaster />
         </ThemeProvider>
       </body>

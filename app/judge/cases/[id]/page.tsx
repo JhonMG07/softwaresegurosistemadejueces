@@ -8,9 +8,6 @@ import { CaseView } from "./case-view";
 import { ClientNavbar } from "@/components/client-navbar";
 import { Suspense } from "react";
 
-// Forzar rendering dinámico para evitar errores de pre-rendering
-export const dynamic = 'force-dynamic';
-
 export default async function JudgeCasePage(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
     const caseId = params.id;
