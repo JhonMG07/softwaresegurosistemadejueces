@@ -87,8 +87,8 @@ export async function requireAdmin() {
         throw new Error('Account suspended');
     }
 
-    // Admin o Super Admin pueden acceder
-    if (profile.role !== 'admin' && profile.role !== 'super_admin') {
+    // Admin, Auditor o Super Admin pueden acceder
+    if (profile.role !== 'admin' && profile.role !== 'auditor' && profile.role !== 'super_admin') {
         throw new Error('Forbidden');
     }
 
@@ -107,8 +107,8 @@ export async function requireAdminWithPermission(requiredAttribute: string) {
 
     const supabase = await createClient();
 
-    // Super admin tiene todos los permisos
-    if (profile.role === 'super_admin') {
+    // Super admin y auditor tienen todos los permisos de auditoría
+    if (profile.role === 'super_admin' || profile.role === 'auditor') {
         return { user, profile };
     }
 

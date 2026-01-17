@@ -75,9 +75,9 @@ export async function proxy(request: NextRequest) {
   }
 
   // Proteger rutas de Admin (Auditor)
-  // Solo admin y super_admin pueden acceder
+  // Solo admin, auditor y super_admin pueden acceder
   if (pathname.startsWith('/admin')) {
-    if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {
+    if (profile?.role !== 'admin' && profile?.role !== 'auditor' && profile?.role !== 'super_admin') {
       const url = request.nextUrl.clone();
       url.pathname = '/unauthorized';
       return NextResponse.redirect(url);
@@ -104,9 +104,9 @@ export async function proxy(request: NextRequest) {
   }
 
   // Proteger APIs de auditoria
-  // Solo admin y super_admin pueden acceder
+  // Solo admin, auditor y super_admin pueden acceder
   if (pathname.startsWith('/api/audit')) {
-    if (profile?.role !== 'admin' && profile?.role !== 'super_admin') {
+    if (profile?.role !== 'admin' && profile?.role !== 'auditor' && profile?.role !== 'super_admin') {
       return NextResponse.json(
         { error: 'Forbidden - Admin access required' },
         { status: 403 }

@@ -54,6 +54,8 @@ export function LoginForm({
           router.push("/judge/cases");
         } else if (profile?.role === 'super_admin') {
           router.push("/supreme-court");
+        } else if (profile?.role === 'admin' || profile?.role === 'auditor') {
+          router.push("/admin");
         } else {
           router.push("/");
         }

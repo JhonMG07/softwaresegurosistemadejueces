@@ -45,8 +45,8 @@ export default async function AdminLayout({
         redirect('/unauthorized');
     }
 
-    // Solo admin y super_admin pueden acceder
-    if (profile.role !== 'admin' && profile.role !== 'super_admin') {
+    // Solo admin, auditor y super_admin pueden acceder
+    if (profile.role !== 'admin' && profile.role !== 'auditor' && profile.role !== 'super_admin') {
         redirect('/unauthorized');
     }
 

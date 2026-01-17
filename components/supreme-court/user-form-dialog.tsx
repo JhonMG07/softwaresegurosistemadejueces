@@ -171,6 +171,7 @@ export function UserFormDialog({
                   <SelectItem value="Civil">Civil</SelectItem>
                   <SelectItem value="Laboral">Laboral</SelectItem>
                   <SelectItem value="Administrativo">Administrativo</SelectItem>
+                  <SelectItem value="Auditoría">Auditoría</SelectItem>
                 </SelectContent>
               </Select>
             </div>
