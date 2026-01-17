@@ -28,10 +28,10 @@ export default function AdminLayout({
 }) {
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-            <Suspense fallback={<div className="h-16 border-b bg-white dark:bg-slate-950 shadow-sm" />}>
+
+            <Suspense fallback={<div className="h-16 bg-white dark:bg-slate-900 border-b" />}>
                 <AdminNavbar />
             </Suspense>
-
             <main className="container mx-auto px-6 py-8">
                 <Suspense fallback={<div className="flex items-center justify-center h-64 text-slate-500">Cargando panel de auditoría...</div>}>
                     <AdminAuthGuard>
