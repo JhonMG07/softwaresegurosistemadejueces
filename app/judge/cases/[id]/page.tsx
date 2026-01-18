@@ -6,6 +6,10 @@ import { notFound, redirect } from "next/navigation";
 import { TokenForm } from "./token-form";
 import { CaseView } from "./case-view";
 import { ClientNavbar } from "@/components/client-navbar";
+import { Suspense } from "react";
+
+// Forzar rendering dinámico para evitar errores de pre-rendering
+export const dynamic = 'force-dynamic';
 
 export default async function JudgeCasePage(props: { params: Promise<{ id: string }> }) {
     const params = await props.params;
@@ -41,7 +45,9 @@ export default async function JudgeCasePage(props: { params: Promise<{ id: strin
     if (['dictaminado', 'cerrado'].includes(caseMetadata.status)) {
         return (
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-                <ClientNavbar displayName="Juez" />
+                <Suspense fallback={<div className="h-16 bg-white dark:bg-slate-900 border-b" />}>
+                    <ClientNavbar displayName="Juez" />
+                </Suspense>
                 <div className="container mx-auto p-8 text-center pt-20">
                     <h1 className="text-2xl font-bold mb-4 text-slate-800 dark:text-slate-200">Caso Cerrado</h1>
                     <p className="text-muted-foreground">Este caso ya ha sido dictaminado y cerrado.</p>
@@ -69,7 +75,9 @@ export default async function JudgeCasePage(props: { params: Promise<{ id: strin
     // 4. Renderizar Vista Condicional
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-            <ClientNavbar displayName="Juez" />
+            <Suspense fallback={<div className="h-16 bg-white dark:bg-slate-900 border-b" />}>
+                <ClientNavbar displayName="Juez" />
+            </Suspense>
             <div className="py-8">
                 {!isUnlocked ? (
                     <TokenForm caseId={caseId} caseNumber={caseMetadata.case_number} />

@@ -1,6 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
+// Forzar rendering dinámico para evitar errores de pre-rendering en root
+export const dynamic = 'force-dynamic';
+
 /**
  * Página raíz que redirige según el rol del usuario
  */
